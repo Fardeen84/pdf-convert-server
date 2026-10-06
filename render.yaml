@@ -1,0 +1,18 @@
+# Render Blueprint: New + > Blueprint > pick this repo.
+services:
+  - type: web
+    name: mrig-convert
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: API_KEY
+        generateValue: true      # copy the generated value into the app build (CONVERT_KEY)
+      - key: MAX_JOBS
+        value: "1"               # free plan has 512 MB RAM: one conversion at a time
+      - key: MAX_FILE_MB
+        value: "10"
+      - key: JOB_TIMEOUT_S
+        value: "100"
+      - key: RATE_LIMIT_PER_MIN
+        value: "10"
